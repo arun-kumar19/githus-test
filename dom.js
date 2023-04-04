@@ -35,11 +35,23 @@ for(var i=0;i<list.length;i++){
     list[i].style.backgroundColor="#ccc"
 } */
 
-const li=document.getElementsByTagName("li")
+/* const li=document.getElementsByTagName("li")
 
 
 for(var i=0;i<li.length;i++){
     li[i].style.backgroundColor="#ccc"
+} */
+
+/* const second=document.querySelector("li:nth-child(2)")
+second.style.backgroundColor='green';
+
+const third=document.querySelector("li:nth-child(3)")
+third.style.display='none'; */
+
+const list=document.querySelectorAll("li")
+list[1].style.color='green';
+
+const odd=document.querySelectorAll("li:nth-child(odd)")
+for(var i=0;i<odd.length;i++){
+    odd[i].style.backgroundColor='green';
 }
-
-
