@@ -13,6 +13,8 @@ var items=document.querySelector(".list-group");
 
 for(var i=0; i<items.childElementCount;i++){
 
+    items.style.fontWeight='bold';
+
     if(i % 2==0)
         items.children[i].setAttribute("style","color:red");
     else
@@ -23,3 +25,10 @@ console.log(document.querySelectorAll("input")[1].name)
 document.getElementById("title").style.fontWeight="bold"
 document.getElementById("title").style.color="green"
 document.getElementsByTagName("span")[0].style.display="none";
+
+console.log(document.getElementsByName("input")[0].name);
+console.log(document.getElementById("header-title").innerText);
+const list=document.getElementsByClassName("list-group-item")
+list[2].style.backgroundColor='green';
+
+
