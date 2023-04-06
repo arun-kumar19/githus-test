@@ -48,10 +48,37 @@ second.style.backgroundColor='green';
 const third=document.querySelector("li:nth-child(3)")
 third.style.display='none'; */
 
-const list=document.querySelectorAll("li")
+/*const list=document.querySelectorAll("li")
 list[1].style.color='green';
 
 const odd=document.querySelectorAll("li:nth-child(odd)")
 for(var i=0;i<odd.length;i++){
     odd[i].style.backgroundColor='green';
-}
+}*/
+
+const itemList=document.querySelector('#item');
+//console.log(itemList.parentElement)
+itemList.parentElement.style.backgroundColor='#f4f4f4';
+//console.log(itemList.lastElementChild)
+itemList.lastElementChild.style.color='green';
+//console.log(itemList.lastChild)
+const createLi=document.createElement('li');
+createLi.textContent='New Li node';
+createLi.setAttribute('class','list-group-item');
+//console.log(createLi);
+document.getElementById('item').appendChild(createLi);
+//console.log(itemList.firstElementChild)
+itemList.firstElementChild.style.backgroundColor='#90EE90';
+//console.log(itemList.firstChild)
+const node=document.querySelector('.list-group-item')
+//console.log(node.nextSibling);
+//console.log(node.nextElementSibling);
+//console.log(node.nextSibling.previousSibling)
+console.log(node.nextSibling.previousElementSibling.textContent)
+const textnode=document.createTextNode("Hello World!");
+const list=document.getElementById('header-title');
+list.insertBefore(textnode,list.firstChild)
+const item=document.getElementById('item');
+const itemnode=document.createTextNode("hello world")
+
+item.insertBefore(itemnode,item.firstChild)
