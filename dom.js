@@ -95,7 +95,6 @@ createLi.innerText=document.getElementById('input').value;
 //console.log(createLi)
 addLi.appendChild(createLi)
 }
-//011 30653286
 
 const deleteBtn=document.getElementById('delete')
 console.log(deleteBtn)
