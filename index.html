@@ -11,35 +11,56 @@
 <body>
    <header id="main-header" class="bg-success text-white p-4 mb-3">
     <div class="container">
-        <h1 id="header-title">Item Lister <span style="display:none">123</span></h1>
+        <div class="row">
+            <div class="col-md-6">
+                 <h1 id="header-title">Item Lister</h1>
+        </div>  
+         <div class="col-md-6 align-self-center">
+            <input type="text" id="filter" class="form-control" placeholder="Search Item...">
+         </div>
+        
+    </div>
     </div>
    </header>
             <div class="container">
                 <div id="main" class="card card-body">
                     <h2 id="title">Add Item</h2>
                     <form action="" class="form-inline mb-3">
-                    <input type="text" name="input" id="input" value="" class="form-control mr-2">
-                    <input type="submit" id="submit" class="btn btn-dark" name="submit" value="submit">
+                       <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" name="input" id="input" value="" class="form-control mr-2" Style="width: 300px">
+                        </div>
+                          <div class="col-md-4"> 
+                            <input type="text" name="input" id="description" value="" class="form-control mr-2" Style="width: 300px">
+                          </div>
+                               <div class="col-md-4">
+                               <input type="submit" id="submit" class="btn btn-dark" name="submit" value="submit" Style="width: 100px">
+                               </div>
+                    </div> 
                     </form>
-                    <h2 class="title" >Item</h2><ul id="item" class="list-group">
-                        <li class="list-group-item">item 1</li>
-                        <li class="list-group-item">item 2</li>
-                        <li class="list-group-item">item 3</li>
-                        <li class="list-group-item">item 4</li>
+                    <h2 class="title" >Item</h2>
+                        <ul id="item" class="list-group">
+                        <li class="list-group-item" style="display: block;">item 1
+                          
+                           <button class="btn btn-sm btn-primary float-right editBtn">EDIT</button><button class="btn btn-danger btn-sm float-right delete">X</button>
+                            
+                        </li>
+                        <li class="list-group-item" style="display: block;">item 2
+                          
+                            <button class="btn btn-sm btn-primary float-right editBtn">EDIT</button><button class="btn btn-danger btn-sm float-right delete">X</button>
+                             
+                         </li>
+                         <li class="list-group-item" style="display: block;">item 3
+                          
+                            <button class="btn btn-sm btn-primary float-right editBtn">EDIT</button><button class="btn btn-danger btn-sm float-right delete">X</button>
+                             
+                         </li>
+                         <li class="list-group-item" style="display: block;">item 4
+                          
+                            <button class="btn btn-sm btn-primary float-right editBtn">EDIT</button><button class="btn btn-danger btn-sm float-right delete">X</button>
+                             
+                         </li>
                     </ul>
-                    <br>
-            <div class="container">      
-                <div class="row">
-                    <div class="col-md-6 text-center bg-danger btn fs-5 text-white" role="button" type="submit" value="delete" type="submit" id="delete" >
-                        <!--<input type="submit" class="btn btn-danger"  width="50%">-->
-                        delete
-                     </div>
-                    <div  type="submit" class="col-md-6 text-center btn btn-primary fs-5 text-white" id="edit">
-                    <!--<input type="submit" class="btn btn-primary" value="" >-->
-                    edit
-                    </div>
-                </div>
-            </div>
             </div>
     </div>
    <script src="dom.js"></script>
