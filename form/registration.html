@@ -146,7 +146,7 @@ form.addEventListener('submit', (e) => {
     console.log(`${pair[0]}, ${pair[1]}`);
   }
 });
-*/
+
 
 const form=document.querySelector('form')
 form.addEventListener('submit',(e)=>{
@@ -158,7 +158,48 @@ localStorage.setItem('date',document.getElementById('date').value);
 localStorage.setItem('time',document.getElementById('time').value);
 });
 
-//console.log(localStorage.getItem('name'));
+
+console.log(localStorage.getItem('name'));
+
+*/
+
+var arr_obj=[];
+/*localObj={
+  name: 'arun',
+  email:'arunklt21@gmail.com',
+  phone:'8800453030',
+  date:'10-12-2022',
+  time:'12:34'
+};
+
+let obj_serialized=JSON.stringify(localObj);
+arr_obj.push(obj_serialized);
+localStorage.setItem('localObj',arr_obj);
+*/
+const form=document.querySelector('form')
+form.addEventListener('submit',(e)=>{
+e.preventDefault()
+const name=document.getElementById("name").value
+const email=document.getElementById('email').value
+const phone=document.getElementById('phone').value;
+const date=document.getElementById('date').value;
+const time=document.getElementById('time').value;
+
+localObj={
+  name: name,
+  email:email,
+  phone:phone,
+  date:date,
+  time:time
+};
+let obj_serialized=JSON.stringify(localObj);
+arr_obj.push(obj_serialized);
+localStorage.setItem('localObj',arr_obj);
+let jsonString=localStorage.getItem("localObj");
+
+console.log(jsonString)
+});
+
 
 </script>
 </body>
