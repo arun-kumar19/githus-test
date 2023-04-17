@@ -161,10 +161,10 @@ localStorage.setItem('time',document.getElementById('time').value);
 
 console.log(localStorage.getItem('name'));
 
-*/
 
-var arr_obj=[];
-/*localObj={
+
+
+localObj={
   name: 'arun',
   email:'arunklt21@gmail.com',
   phone:'8800453030',
@@ -176,6 +176,9 @@ let obj_serialized=JSON.stringify(localObj);
 arr_obj.push(obj_serialized);
 localStorage.setItem('localObj',arr_obj);
 */
+
+
+
 const form=document.querySelector('form')
 form.addEventListener('submit',(e)=>{
 e.preventDefault()
@@ -185,7 +188,7 @@ const phone=document.getElementById('phone').value;
 const date=document.getElementById('date').value;
 const time=document.getElementById('time').value;
 
-localObj={
+let localObj={
   name: name,
   email:email,
   phone:phone,
@@ -193,11 +196,9 @@ localObj={
   time:time
 };
 let obj_serialized=JSON.stringify(localObj);
-arr_obj.push(obj_serialized);
-localStorage.setItem('localObj',arr_obj);
-let jsonString=localStorage.getItem("localObj");
+localStorage.setItem(email,obj_serialized);
 
-console.log(jsonString)
+console.log(localStorage)
 });
 
 
