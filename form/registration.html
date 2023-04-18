@@ -76,7 +76,11 @@
 </div>
 </div> 
 </div>
-
+<div>
+  <ul id="listOfItems">
+    <li id="" style="display: none;"><button id='delete' class="delete">delete</button></li>
+  </ul>
+</div>
 </div>
 <!--<script src="index1.js"></script>-->
 <script>
@@ -108,7 +112,7 @@ document.getElementById('name').addEventListener('mouseout',(e)=>{
       
       document.getElementById('phone').addEventListener('mouseover',(e)=>{
 
-        document.getElementById("phonemessage").textContent="Enter Invalid Number";
+        document.getElementById("phonemessage").textContent="Enter a valid Number";
         
         });
         
@@ -188,6 +192,13 @@ const phone=document.getElementById('phone').value;
 const date=document.getElementById('date').value;
 const time=document.getElementById('time').value;
 
+let ul=document.getElementById('listOfItems');
+  let li=document.createElement('li');
+    li.setAttribute('name',email);
+  li.appendChild(document.createTextNode(name+' '+email+' '+phone+' '+date+' '+time+' '))
+  li.innerHTML+= ' <button id="delete" class="delete">delete</button>';
+ul.appendChild(li)
+
 let localObj={
   name: name,
   email:email,
@@ -198,10 +209,30 @@ let localObj={
 let obj_serialized=JSON.stringify(localObj);
 localStorage.setItem(email,obj_serialized);
 
-console.log(localStorage)
+//console.log(localStorage)
 });
+
+const deletebutton=document.getElementById('listOfItems')
+//console.log(deletebutton)
+deletebutton.addEventListener('click',deleteLi)
+  function deleteLi(e){
+    if(e.target.classList.contains('delete')) {
+        var li=e.target.parentElement;
+        let text=li.textContent;
+        const myarr=text.split(" ")
+        let email=myarr[1]
+        //console.log(email)
+        localStorage.removeItem(email)
+        document.getElementById('listOfItems').removeChild(li)
+  
+    }
+ 
+
+  }
+
 
 
 </script>
 </body>
 </html>
+
