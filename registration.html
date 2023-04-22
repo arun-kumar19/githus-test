@@ -76,11 +76,7 @@
 </div>
 </div> 
 </div>
-<div>
-  <ul id="listOfItems">
-    <li id="" style="display: none;"><button id="delete" class="delete">delete</button>&nbsp;<button id="edit" class="edit">edit</button></li>
-  </ul>
-</div>
+
 </div>
 <!--<script src="index1.js"></script>-->
 <script>
@@ -112,7 +108,7 @@ document.getElementById('name').addEventListener('mouseout',(e)=>{
       
       document.getElementById('phone').addEventListener('mouseover',(e)=>{
 
-        document.getElementById("phonemessage").textContent="Enter a valid Number";
+        document.getElementById("phonemessage").textContent="Enter Invalid Number";
         
         });
         
@@ -150,7 +146,7 @@ form.addEventListener('submit', (e) => {
     console.log(`${pair[0]}, ${pair[1]}`);
   }
 });
-
+*/
 
 const form=document.querySelector('form')
 form.addEventListener('submit',(e)=>{
@@ -163,92 +159,7 @@ localStorage.setItem('time',document.getElementById('time').value);
 });
 
 
-console.log(localStorage.getItem('name'));
-
-
-
-
-localObj={
-  name: 'arun',
-  email:'arunklt21@gmail.com',
-  phone:'8800453030',
-  date:'10-12-2022',
-  time:'12:34'
-};
-
-let obj_serialized=JSON.stringify(localObj);
-arr_obj.push(obj_serialized);
-localStorage.setItem('localObj',arr_obj);
-*/
-
-
-
-const form=document.querySelector('form')
-form.addEventListener('submit',(e)=>{
-e.preventDefault()
-const name=document.getElementById("name").value
-const email=document.getElementById('email').value
-const phone=document.getElementById('phone').value;
-const date=document.getElementById('date').value;
-const time=document.getElementById('time').value;
-
-let ul=document.getElementById('listOfItems');
-  let li=document.createElement('li');
-    li.setAttribute('name',email);
-  li.appendChild(document.createTextNode(name+' '+email+' '+phone+' '+date+' '+time+' '))
-  li.innerHTML+= ' <button id="delete" class="delete">delete</button>&nbsp;<button id="edit" class="edit">edit</button>';
-ul.appendChild(li)
-
-let localObj={
-  name: name,
-  email:email,
-  phone:phone,
-  date:date,
-  time:time
-};
-let obj_serialized=JSON.stringify(localObj);
-localStorage.setItem(email,obj_serialized);
-
-//console.log(localStorage)
-});
-
-const deletebutton=document.getElementById('listOfItems')
-//console.log(deletebutton)
-deletebutton.addEventListener('click',deleteLi)
-  function deleteLi(e){
-    if(e.target.classList.contains('delete')) {
-        var li=e.target.parentElement;
-        let text=li.textContent;
-        const myarr=text.split(" ")
-        let email=myarr[1]
-        //console.log(email)
-        localStorage.removeItem(email)
-        document.getElementById('listOfItems').removeChild(li)
-  
-    }
-  }
-
-  const editbutton=document.getElementById('listOfItems')
-  editbutton.addEventListener('click',editLi)
-  function editLi(e){
-    if(e.target.classList.contains('edit')) {
-        var li=e.target.parentElement;
-        let text=li.textContent;
-        const myarr=text.split(" ")
-        let email=myarr[1]
-        document.getElementById('name').value=myarr[0]
-        document.getElementById('email').value=myarr[1]
-        document.getElementById('phone').value=myarr[2]
-        document.getElementById('date').value=myarr[3]
-        document.getElementById('time').value=myarr[4]
-        localStorage.removeItem(email)
-        document.getElementById('listOfItems').removeChild(li)
-  
-    }
-  }
-
 
 </script>
 </body>
 </html>
-
