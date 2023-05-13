@@ -61,7 +61,7 @@ form.addEventListener("click",function(e){
 
    axios({
         method:'post',
-        url:'https://crudcrud.com/api/7e5be3a2607148bebe7d8a52a65decb0/seller',
+        url:'https://crudcrud.com/api/76c5ddd4bdc3435b9ab539a6a541474f/seller',
         data:{
             "id":i,
             "price":price,
@@ -80,34 +80,44 @@ mytable.addEventListener("click",deleteItem);
 function deleteItem(e){
     if(e.target.classList.contains("delete")){
         const child=e.target.parentElement;
-       const id=child.id;
-        console.log(id)
         const parent=child.parentElement;
-
-        const baseurl="https://crudcrud.com/api/7e5be3a2607148bebe7d8a52a65decb0/seller/";
-        const mainurl=baseurl.concat(id);
+        const id=child.id;
+        console.log("li id:",id)
+    
+    axios.get("https://crudcrud.com/api/76c5ddd4bdc3435b9ab539a6a541474f/seller").then(res=>{
+        var datatable=res;
+        const tablelen=datatable.data.length;
+        for(let i=0;i<tablelen;i++){
+            const tbid=datatable.data[i]._id;
+        const searchid=datatable.data[i].id;
+        console.log("searchid:",searchid," id:",id);
+            if(searchid==id){
+        const baseurl="https://crudcrud.com/api/76c5ddd4bdc3435b9ab539a6a541474f/seller/";
+        const mainurl=baseurl.concat(tbid);
         console.log("url:",mainurl)
-        
         axios.delete(mainurl).then(res=>{
-        
             console.log("deleted susccessfully:",res)      
-        parent.removeChild(child)
+        parent.removeChild(child);
     }).catch(err=>console.log("soemthing went wrong:",err))
     }
+        }
+}).catch(err=>console.log("something went wrong:",err))
+
 
 }
 
+}
 
 window.onload=function (e){
     e.preventDefault()
     let index;
-    axios.get("https://crudcrud.com/api/7e5be3a2607148bebe7d8a52a65decb0/seller").then(res=>{
+    axios.get("https://crudcrud.com/api/76c5ddd4bdc3435b9ab539a6a541474f/seller").then(res=>{
     
        var datatable=res;
     const tablelen=datatable.data.length;
     
         for(let i=0;i<tablelen;i++){
-        //const id=datatable.data[i].id;
+        const id=datatable.data[i].id;
         const price=datatable.data[i].price;
         const item=datatable.data[i].item;
         const value=datatable.data[i].category;
@@ -125,6 +135,7 @@ window.onload=function (e){
                 const btnvalue=document.createTextNode("Delete")
                 btn.className="delete";
                 btn.appendChild(btnvalue);
+                li.id=id;
                 li.style="font-family: 'Times New Roman', Times, serif;font-size: medium;font-weight: normal";
                 let result = price.concat("-",item,"-",value," ");
                 const nodevalue=document.createTextNode(result);
