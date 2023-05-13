@@ -1,108 +1,146 @@
+var i=localStorage.getItem("lastiValue");
+const list=document.getElementById("table")
+let len=list.children.length;
+const mytable=document.getElementById("list")
 
-const parent=document.getElementById("list")
-var submit=document.getElementById("submit")
-submit.addEventListener("click",function (){
-    var amount=document.getElementById("amount").value
-    var description=document.getElementById("description").value
-    var category=document.getElementById("category").value
-
-    const element=document.createElement("li")
-    const editButton=document.createElement("button");
-            editButton.classList="edit"
-    const editButtonText=document.createTextNode("edit expense");
-    const deleteButton=document.createElement("button");
-    deleteButton.classList="delete"
-    const deleteButtonText=document.createTextNode("delete expense");
-    deleteButton.appendChild(deleteButtonText)
-    editButton.appendChild(editButtonText);
-    textnode = document.createTextNode(amount+' - '+description+' - '+category+"-");
-    element.appendChild(textnode)
-    element.appendChild(editButton)
-    element.appendChild(deleteButton)
-    element.classList.add("listitem")
-    parent.appendChild(element)
-
-    const obj={
-        'amount':amount,
-        'description':description,
-        'category':category
-    }
-    
-    const str=JSON.stringify(obj)
-    localStorage.setItem(description,str);
-    //console.log(element)
-});
-
-parent.addEventListener('click',editItem)
-parent.addEventListener('click',deleteItem)
-
-function editItem(e){
-
-    if(e.target.classList.contains('edit')){
-
-        var li=e.target.parentElement;
-        let data=li.innerText;
-        let arr=data.split("-")
-        document.getElementById('amount').value=arr[0]
-        document.getElementById('description').value=arr[1]
-        //console.log(arr[2].trim())
-        document.getElementById('category').value=arr[2].trim()
-        let description=arr[1].trim()
-        //console.log("inside delete item and value is "+description)
-        localStorage.removeItem(description)
-        parent.removeChild(li)
-    }
-
-}
-
-function deleteItem(e){
-
-    if(e.target.classList.contains('delete')){
-
-        var li=e.target.parentElement;
-        let data=li.innerText;
-        let arr=data.split("-")
-        let description=arr[1].trim()
-        //console.log(arr[1])
-        console.log("inside delete item and value is "+description)
-        //document.getElementById('description').value=arr[1]
-        //console.log(arr[2].trim())
-        //document.getElementById('category').value=arr[2].trim()
-      //console.log(arr)  
-      localStorage.removeItem(description)
-        parent.removeChild(li)
-        
-    }
-
-}
-
-document.body.onload = function() {
-    const len=localStorage.length
-const local={...localStorage};
-var values=Object.values(local)
+//creating heading with className
 
 for(let i=0;i<len;i++){
-var obj=JSON.parse(values[i])
-
-    var amount=obj.amount
-    var description=obj.description
-    var category=obj.category
-
-    const element=document.createElement("li")
-    const editButton=document.createElement("button");
-            editButton.classList="edit"
-    const editButtonText=document.createTextNode("edit expense");
-    const deleteButton=document.createElement("button");
-    deleteButton.classList="delete"
-    const deleteButtonText=document.createTextNode("delete expense");
-    deleteButton.appendChild(deleteButtonText)
-    editButton.appendChild(editButtonText);
-    litextnode = document.createTextNode(amount+' - '+description+' - '+category+"-");
-    element.appendChild(litextnode)
-    element.appendChild(editButton)
-    element.appendChild(deleteButton)
-    element.classList.add("listitem")
-    parent.appendChild(element)
+    const node=document.createElement("h3");
+    const textnode=document.createTextNode(list.children[i].innerHTML)
+    node.className=list.children[i].index;
+    node.id=list.children[i].index;
+    node.appendChild(textnode)
+    mytable.appendChild(node)
 }
-  }
+
+//creating li under headings
+const form=document.getElementById("submit");
+form.addEventListener("click",function(e){
+    e.preventDefault();
+    const price=document.getElementById("price").value
+    const item=document.getElementById("item").value;
+    const index=list.selectedIndex;
+    const value=list[index].value;
+    const para=document.createElement("p")
+    const ul=document.createElement("ul");
+    const li=document.createElement("li");
+    if(i==="undefined"){
+        li.id=0;    
+        localStorage.setItem("lastiValue", 0);
+    }
+    else{
+        i=localStorage.getItem("lastiValue");
+        i++;
+        li.id=i;
+        localStorage.setItem("lastiValue", i);
+    }
+       
+    const btn=document.createElement("button");
+    const btnvalue=document.createTextNode("Delete")
+    btn.className="delete";
+    btn.appendChild(btnvalue);
+    li.style="font-family: 'Times New Roman', Times, serif;font-size: medium;font-weight: normal";
+    let result = price.concat("-",item,"-",value," ");
+    const nodevalue=document.createTextNode(result);
+    console.log(nodevalue)
+    li.appendChild(nodevalue)
+    li.appendChild(btn)
+    ul.appendChild(li);  
+    para.appendChild(ul)
+    
+    for(let i=0;i<len;i++){
+        
+        if(i==index){
+           
+            document.getElementById(i).appendChild(para);
+          
+        }
+       
+        }
+
+   axios({
+        method:'post',
+        url:'https://crudcrud.com/api/7e5be3a2607148bebe7d8a52a65decb0/seller',
+        data:{
+            "id":i,
+            "price":price,
+            "item":item,
+            "category":value,
+            "index":index
+        }
+   }).then(res=>console.log("data inserted scuccessfully")).
+   catch(err=>console.log("soemthing went wrong"));
+    
+})
+
+
+mytable.addEventListener("click",deleteItem);
+
+function deleteItem(e){
+    if(e.target.classList.contains("delete")){
+        const child=e.target.parentElement;
+       const id=child.id;
+        console.log(id)
+        const parent=child.parentElement;
+
+        const baseurl="https://crudcrud.com/api/7e5be3a2607148bebe7d8a52a65decb0/seller/";
+        const mainurl=baseurl.concat(id);
+        console.log("url:",mainurl)
+        
+        axios.delete(mainurl).then(res=>{
+        
+            console.log("deleted susccessfully:",res)      
+        parent.removeChild(child)
+    }).catch(err=>console.log("soemthing went wrong:",err))
+    }
+
+}
+
+
+window.onload=function (e){
+    e.preventDefault()
+    let index;
+    axios.get("https://crudcrud.com/api/7e5be3a2607148bebe7d8a52a65decb0/seller").then(res=>{
+    
+       var datatable=res;
+    const tablelen=datatable.data.length;
+    
+        for(let i=0;i<tablelen;i++){
+        //const id=datatable.data[i].id;
+        const price=datatable.data[i].price;
+        const item=datatable.data[i].item;
+        const value=datatable.data[i].category;
+        const index=datatable.data[i].index;
+        console.log(price,item,value,index)
+
+        for(let i=0;i<len;i++){
+        
+            if(i==index){
+
+                const para=document.createElement("p")
+                const ul=document.createElement("ul");
+                const li=document.createElement("li");
+                const btn=document.createElement("button");
+                const btnvalue=document.createTextNode("Delete")
+                btn.className="delete";
+                btn.appendChild(btnvalue);
+                li.style="font-family: 'Times New Roman', Times, serif;font-size: medium;font-weight: normal";
+                let result = price.concat("-",item,"-",value," ");
+                const nodevalue=document.createTextNode(result);
+                //console.log(nodevalue)
+                li.appendChild(nodevalue)
+                li.appendChild(btn)
+                ul.appendChild(li);  
+                para.appendChild(ul)
+               
+                document.getElementById(i).appendChild(para);
+              
+            }
+    }
+}
+ }).catch(res=>{
+    console.log(res)
+    })
+}
 
